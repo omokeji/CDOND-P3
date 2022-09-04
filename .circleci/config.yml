@@ -182,7 +182,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       - destroy-environment:
-          to: "${CIRCLE_WORKFLOW_ID:0:7}"
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
   configure-infrastructure:
     docker:
@@ -212,7 +212,7 @@ jobs:
           no_output_timeout: 30m
       # Here's where you will add some code to rollback on failure  
       - destroy-environment:
-          to: "${CIRCLE_WORKFLOW_ID:0:7}"    
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"    
 
   run-migrations:
     docker:
@@ -243,7 +243,7 @@ jobs:
                 curl https://kvdb.io/KVLiEL3TNy3V89bknmy57Z/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment:
-          to: "${CIRCLE_WORKFLOW_ID:0:7}"        
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
 
   deploy-frontend:
     docker:
