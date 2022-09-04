@@ -193,11 +193,11 @@ jobs:
       - checkout
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-        fingerprints:
-          - "62:d2:44:46:25:df:41:93:5d:37:d8:dc:41:8e:28:5b"
+          fingerprints:
+            - "62:d2:44:46:25:df:41:93:5d:37:d8:dc:41:8e:28:5b"
       # attach workspace
       - attach_workspace:
-        at: ~/
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -243,7 +243,7 @@ jobs:
                 curl https://kvdb.io/KVLiEL3TNy3V89bknmy57Z/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment:
-        to: "${CIRCLE_WORKFLOW_ID:0:7}"        
+          to: "${CIRCLE_WORKFLOW_ID:0:7}"        
 
   deploy-frontend:
     docker:
@@ -252,7 +252,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace: 
-        at: ~/
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -294,7 +294,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace: 
-        at: ~/
+          at: ~/
       - run:
           name: Install dependencies
           command: |
