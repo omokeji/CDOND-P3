@@ -26,7 +26,7 @@ commands:
       - run:
           name: Destroy frontend environments
           when: on_fail
-          command: |
+          command: | 
             aws s3 rm s3://udapeople-<< parameters.workflow_id >> # -- recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_id >>
 
@@ -238,9 +238,8 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            sudo npm install -g npm
+            npm install 
             npm run migrations > migrations_dump.txt
-            cat migrations_dump.txt
       - persist_to_workspace:
           root: ~/
           paths:
