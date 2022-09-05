@@ -174,7 +174,7 @@ jobs:
           command: |
               aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project, Values=udapeople" \
+              # --filters "Name=tag:project, Values=udapeople" \
               --output text >> .circleci/ansible/inventory.txt
               cat .circleci/ansible/inventory.txt
       - persist_to_workspace:
@@ -214,7 +214,7 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ~/project/backend/.env
             echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> ~/project/backend/.env
             echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> ~/project/backend/.env
-            
+
             cd .circleci/ansible
             ls -al
             ansible-playbook -i inventory.txt configure-server.yml
@@ -277,7 +277,7 @@ jobs:
           name: Get backend url
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances \
-            --filter "Name=instance-state-name,Values=running" \
+            # --filter "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
@@ -381,14 +381,14 @@ jobs:
           name: Get backend url
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances \
-            --filter "Name=instance-state-name,Values=running" \
+            # --filter "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
       - run:
           name: Backend smoke test.
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances \
-            --filter "Name=instance-state-name,Values=running" \
+            # --filter "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
@@ -515,9 +515,9 @@ workflows:
           requires: [build-frontend]
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [main]
+          # filters:
+          #   branches:
+          #     only: [main]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
